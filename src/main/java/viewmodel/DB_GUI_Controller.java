@@ -32,6 +32,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     TextField first_name, last_name, department, major, email, imageURL;
     @FXML
+    Button clearBtn, addBtn, deleteBtn, editBtn;
+    @FXML
     ImageView img_view;
     @FXML
     MenuBar menuBar;
@@ -57,7 +59,50 @@ public class DB_GUI_Controller implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+
+        //disable delete and edit button
+        deleteBtn.setDisable(true);
+        editBtn.setDisable(true);
+
+        //listen for changes in first name input field
+        first_name.textProperty().addListener((observable, oldValue, newValue) -> {
+            validateFirstName(); //re-validate first name
+        });
+        //listen for changes in last name input field
+        last_name.textProperty().addListener((observable, oldValue, newValue) -> {
+            validateLastName(); //re-validate first name
+        });
+        //listen for changes in department input field
+        department.textProperty().addListener((observable, oldValue, newValue) -> {
+            validateDepartment(); //re-validate first name
+        });
+        //listen for changes in major input field
+        major.textProperty().addListener((observable, oldValue, newValue) -> {
+            validateMajor(); //re-validate first name
+        });
+        //listen for changes in email input field
+        email.textProperty().addListener((observable, oldValue, newValue) -> {
+            validateEmail(); //re-validate first name
+        });
+
+
+
+        //disable delete and edit buttons if fields are empty.
+        first_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+        last_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+        department.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+        major.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+        email.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+
+
+
+
+
+
+
     }
+
 
     @FXML
     protected void addNewRecord() {
@@ -227,6 +272,48 @@ public class DB_GUI_Controller implements Initializable {
             this.lname = date;
             this.major = venue;
         }
+    }
+
+    //validate first name
+    public boolean validateFirstName() {
+        boolean fieldEmpty = first_name.getText().isEmpty();
+        return !fieldEmpty;
+
+    }
+    //validate last name
+    public boolean validateLastName() {
+        boolean fieldEmpty = last_name.getText().isEmpty();
+        return !fieldEmpty;
+
+    }
+    //validate department
+    public boolean validateDepartment() {
+        boolean fieldEmpty = department.getText().isEmpty();
+        return !fieldEmpty;
+
+    }
+    //validate major
+    public boolean validateMajor() {
+        boolean fieldEmpty = major.getText().isEmpty();
+        return !fieldEmpty;
+
+    }
+
+    //validate email
+    public boolean validateEmail() {
+        boolean fieldEmpty = email.getText().isEmpty();
+        return !fieldEmpty;
+
+    }
+
+
+    private void checkValidationStatus() {
+        //check if all fields are valid
+        boolean allFieldsValid = validateFirstName() && validateLastName() && validateDepartment() && validateMajor() && validateEmail();
+
+        //enable register button if all fields are valid
+        deleteBtn.setDisable(!allFieldsValid);
+        editBtn.setDisable(!allFieldsValid);
     }
 
 }
