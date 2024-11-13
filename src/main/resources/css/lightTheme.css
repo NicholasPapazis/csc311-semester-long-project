@@ -32,7 +32,7 @@
 }
 
 .anchor_pane {
-    -fx-background-color: #a73;
+    -fx-background-color: #ffffff;
 }
 
 .text_field_pane {
@@ -108,8 +108,8 @@
 }
 
 .table-view .cell {
-    -fx-border-color: grey transparent grey transparent; /*outlines only horizontal lines*/
-    -fx-border-width: .01px;
+    -fx-border-color: transparent transparent grey transparent; /*outlines only horizontal lines*/
+    -fx-border-width: .1px;
 
 }
 
