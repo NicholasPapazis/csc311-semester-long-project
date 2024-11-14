@@ -17,6 +17,10 @@
     -fx-min-width: 200px;
 }
 
+#tv {
+    -fx-background-color: rgba(21, 188, 152, 0.01);
+}
+
 .left_pane {
     -fx-background-color: #ffffff;
     -fx-pref-width: 200px;
@@ -37,13 +41,19 @@
 .menu_bar {
     /*-fx-background-color: #841;*/
     /*-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #6B000D, #D52027);*/
-    -fx-background-color: white;
+    -fx-background-color: #eeeeee;
     -fx-border-color: #d9d9d9;
 
 }
 
 .menu_bar .label {
     -fx-text-fill: black;
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: #15bc98;
+    -fx-opacity: 1;
+    -fx-text-fill: white;
 }
 
 
