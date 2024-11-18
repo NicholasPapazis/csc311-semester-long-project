@@ -15,6 +15,7 @@
 .text_field {
     -fx-max-width: 200px;
     -fx-min-width: 200px;
+    -fx-margin: 20px;
 }
 
 #tv {

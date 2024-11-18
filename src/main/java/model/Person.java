@@ -9,8 +9,6 @@ public class Person {
     private String email;
     private String imageURL;
 
-    public Person() {
-    }
 
     public Person(String firstName, String lastName, String department, String major, String email,  String imageURL) {
         this.firstName = firstName;

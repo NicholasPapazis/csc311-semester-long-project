@@ -32,15 +32,19 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store = new StorageUploader();
 
     @FXML
+    ComboBox<Major> majorComboBox;
+    @FXML
     ProgressBar progressBar;
     @FXML
-    TextField first_name, last_name, department, major, email, imageURL;
+    TextField first_name, last_name, department, email, imageURL;
     @FXML
     Button clearBtn, addBtn, deleteBtn, editBtn;
     @FXML
@@ -88,9 +92,9 @@ public class DB_GUI_Controller implements Initializable {
             validateDepartment(); //re-validate first name
         });
         //listen for changes in major input field
-        major.textProperty().addListener((observable, oldValue, newValue) -> {
+        /*majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             validateMajor(); //re-validate first name
-        });
+        });*/
         //listen for changes in email input field
         email.textProperty().addListener((observable, oldValue, newValue) -> {
             validateEmail(); //re-validate first name
@@ -102,23 +106,26 @@ public class DB_GUI_Controller implements Initializable {
         first_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
         last_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
         department.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
-        major.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
+        /*majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());*/
         email.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
 
+        majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
+        majorComboBox.getSelectionModel().selectFirst();
 
 
 
 
 
 
-    }
+
+    } //initialize end
 
 
     @FXML
     protected void addNewRecord() {
 
             Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major.getText(), email.getText(), imageURL.getText());
+                    majorComboBox.getValue().toString(), email.getText(), imageURL.getText());
             cnUtil.insertUser(p);
             cnUtil.retrieveId(p);
             p.setId(cnUtil.retrieveId(p));
@@ -132,7 +139,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        major.setText("");
+        majorComboBox.setValue(null);
         email.setText("");
         imageURL.setText("");
     }
@@ -174,7 +181,7 @@ public class DB_GUI_Controller implements Initializable {
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                major.getText(), email.getText(),  imageURL.getText());
+                majorComboBox.getValue().toString(), email.getText(),  imageURL.getText());
         cnUtil.editUser(p.getId(), p2);
         data.remove(p);
         data.add(index, p2);
@@ -205,6 +212,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void addRecord() {
         showSomeone();
+
     }
 
     @FXML
@@ -213,7 +221,8 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
-        major.setText(p.getMajor());
+        //majorComboBox.setValue(viewmodel.Major.valueOf(p.getMajor()));
+        majorComboBox.setValue(Major.valueOf(p.getMajor()));
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
     }
@@ -273,7 +282,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS}
+    private static enum Major {Business, CSC, CPIS, Accounting, Anthropology, Art, Biology, Chemistry, Communications, Economics, Education, Engineering, English, Finance, History, Mathematics, Nursing, Psychology, Physics, Sociology}
 
     private static class Results {
 
@@ -308,7 +317,7 @@ public class DB_GUI_Controller implements Initializable {
     }
     //validate major
     public boolean validateMajor() {
-        boolean fieldEmpty = major.getText().isEmpty();
+        boolean fieldEmpty = majorComboBox.getValue() == null;
         return !fieldEmpty;
 
     }
