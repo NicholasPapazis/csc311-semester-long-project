@@ -12,11 +12,29 @@
     -fx-pref-height: 25px;
 }
 
-.text_field {
+/*.text_field {
+    -fx-effect: null;
     -fx-max-width: 200px;
     -fx-min-width: 200px;
     -fx-margin: 20px;
+}*/
+
+.text_field {
+    -fx-effect: null;
+    /*-fx-border-color: white;*/
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-max-width: 200px;
+    -fx-min-width: 200px;
+    -fx-prompt-text-fill: #9c9c9c;
 }
+
+.text-field:focused{
+    -fx-border-color: transparent;
+}
+
+
 
 #tv {
     -fx-background-color: rgba(21, 188, 152, 0.01);
@@ -148,4 +166,10 @@
 
 .table-view .cell:empty {
     -fx-border-color: transparent transparent transparent transparent; /*outlines only horizontal lines*/
+}
+
+
+/*alert-text*/
+.alert-text {
+    -fx-text-fill: red;
 }

@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Person;
@@ -32,6 +33,8 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,6 +42,12 @@ public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store = new StorageUploader();
 
+    @FXML
+    Text alertTextFN;
+    @FXML
+    Text alertTextLN;
+    @FXML
+    Text alertTextDPT;
     @FXML
     ComboBox<Major> majorComboBox;
     @FXML
@@ -59,6 +68,13 @@ public class DB_GUI_Controller implements Initializable {
     private TableColumn<Person, String> tv_fn, tv_ln, tv_department, tv_major, tv_email;
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
+
+    //tracks whether the user has attempted to input into the fields
+    private boolean firstNameClicked = false;
+    private boolean lastNameClicked = false;
+    private boolean emailClicked = false;
+    private boolean departmentClicked = false;
+    private boolean zipCodeClicked = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,9 +108,9 @@ public class DB_GUI_Controller implements Initializable {
             validateDepartment(); //re-validate first name
         });
         //listen for changes in major input field
-        /*majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+        majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             validateMajor(); //re-validate first name
-        });*/
+        });
         //listen for changes in email input field
         email.textProperty().addListener((observable, oldValue, newValue) -> {
             validateEmail(); //re-validate first name
@@ -106,15 +122,11 @@ public class DB_GUI_Controller implements Initializable {
         first_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
         last_name.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
         department.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
-        /*majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());*/
+        majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
         email.textProperty().addListener((observable, oldValue, newValue) -> checkValidationStatus());
 
         majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
         majorComboBox.getSelectionModel().selectFirst();
-
-
-
-
 
 
 
@@ -282,7 +294,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS, Accounting, Anthropology, Art, Biology, Chemistry, Communications, Economics, Education, Engineering, English, Finance, History, Mathematics, Nursing, Psychology, Physics, Sociology}
+    private static enum Major {Major, Business, CSC, CPIS, Accounting, Anthropology, Art, Biology, Chemistry, Communications, Economics, Education, Engineering, English, Finance, History, Mathematics, Nursing, Psychology, Physics, Sociology}
 
     private static class Results {
 
@@ -297,27 +309,121 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
-    //validate first name
+    public void firstNameInputClicked(MouseEvent mouseEvent) {
+        firstNameClicked = true; //marks that uer has clicked this field
+        //focusLostAll(mouseEvent); //lose focus on all input fields
+        first_name.requestFocus(); //focus on name input field
+        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
+    }
+    public void lastNameInputClicked(MouseEvent mouseEvent) {
+        lastNameClicked = true; //marks that uer has clicked this field
+        //focusLostAll(mouseEvent); //lose focus on all input fields
+        last_name.requestFocus(); //focus on name input field
+        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
+    }
+
+    public void departmentInputClicked(MouseEvent mouseEvent) {
+        departmentClicked = true; //marks that uer has clicked this field
+        //focusLostAll(mouseEvent); //lose focus on all input fields
+        department.requestFocus(); //focus on name input field
+        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
+    }
+
     public boolean validateFirstName() {
-        boolean fieldEmpty = first_name.getText().isEmpty();
-        return !fieldEmpty;
+        final String regex = "^.{2,25}$"; //regular expression
+        String userInput = first_name.getText(); //gets text from input
 
-    }
-    //validate last name
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(userInput);
+
+        boolean inputValid = matcher.matches(); //check if input matches regex
+
+        //checks if above statement is valid
+        if(inputValid){
+            first_name.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
+            alertTextFN.setText(""); //gets rid of any alert text in alert box
+            return true; //returns true because the input is valid
+        }
+        else {
+            if(first_name.getLength() > 0 ){
+                first_name.setStyle("-fx-border-color: red");
+                alertTextFN.setStyle("-fx-text-fill: red");
+                alertTextFN.setStyle("-fx-font-size: 10px");
+                alertTextFN.setText("* First name must be 2-25 characters");
+
+                return false; //returns false because the input is not valid
+            }
+            return false; //return false if user has not yet inputed anything into the text field
+        }
+
+    } //end validateFirstName
+
     public boolean validateLastName() {
-        boolean fieldEmpty = last_name.getText().isEmpty();
-        return !fieldEmpty;
+        final String regex = "^.{2,25}$"; //regular expression
+        String userInput = last_name.getText(); //gets text from input
 
-    }
-    //validate department
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(userInput);
+
+        boolean inputValid = matcher.matches(); //check if input matches regex
+
+        //checks if above statement is valid
+        if(inputValid){
+            last_name.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
+            alertTextLN.setText(""); //gets rid of any alert text in alert box
+            return true; //returns true because the input is valid
+        }
+        else {
+            if(last_name.getLength() > 0){
+                last_name.setStyle("-fx-border-color: red");
+                alertTextLN.setStyle("-fx-text-fill: red");
+                alertTextLN.setStyle("-fx-font-size: 10px");
+                alertTextLN.setText("* Last name must be 2-25 characters");
+
+                return false; //returns false because the input is not valid
+            }
+            return false; //return false if user has not yet inputed anything into the text field
+        }
+
+    } //end validateLastName
+
+
     public boolean validateDepartment() {
-        boolean fieldEmpty = department.getText().isEmpty();
-        return !fieldEmpty;
+        final String regex = "^.{2,25}$"; //regular expression
+        String userInput = department.getText(); //gets text from input
 
-    }
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(userInput);
+
+        boolean inputValid = matcher.matches(); //check if input matches regex
+
+        //checks if above statement is valid
+        if(inputValid){
+            department.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
+            alertTextDPT.setText(""); //gets rid of any alert text in alert box
+            return true; //returns true because the input is valid
+        }
+        else {
+            if(last_name.getLength() > 0){
+                department.setStyle("-fx-border-color: red");
+                alertTextDPT.setStyle("-fx-text-fill: red");
+                alertTextDPT.setStyle("-fx-font-size: 10px");
+                alertTextDPT.setText("* Last name must be 2-25 characters");
+
+                return false; //returns false because the input is not valid
+            }
+            return false; //return false if user has not yet inputed anything into the text field
+        }
+
+    } //end validateFirstName
+
+
+
     //validate major
     public boolean validateMajor() {
-        boolean fieldEmpty = majorComboBox.getValue() == null;
+        boolean fieldEmpty = majorComboBox.getValue().toString() == "Major";
+        System.out.println("Please choose a major.");
+        majorComboBox.setStyle("-fx-border-color: #ff5733; -fx-border-width: 2px;");
         return !fieldEmpty;
 
     }
