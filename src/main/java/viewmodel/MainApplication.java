@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 public class MainApplication extends Application {
 
-    private static Scene scene;
+    protected static Scene scene; //change access modifier to protected so that we can get the scene focus in the DB_GUI_Controller.java
     private static DbConnectivityClass cnUtil;
     private Stage primaryStage;
 

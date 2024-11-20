@@ -38,6 +38,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+
 public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store = new StorageUploader();
@@ -48,6 +50,12 @@ public class DB_GUI_Controller implements Initializable {
     Text alertTextLN;
     @FXML
     Text alertTextDPT;
+    @FXML
+    Text alertTextMajor;
+    @FXML
+    Text alertTextEmail;
+
+
     @FXML
     ComboBox<Major> majorComboBox;
     @FXML
@@ -130,8 +138,15 @@ public class DB_GUI_Controller implements Initializable {
 
 
 
+
+
+
     } //initialize end
 
+    protected void isFirstnameFocused()
+    {
+        System.out.println(first_name.isFocused());
+    }
 
     @FXML
     protected void addNewRecord() {
@@ -309,25 +324,6 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
-    public void firstNameInputClicked(MouseEvent mouseEvent) {
-        firstNameClicked = true; //marks that uer has clicked this field
-        //focusLostAll(mouseEvent); //lose focus on all input fields
-        first_name.requestFocus(); //focus on name input field
-        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
-    }
-    public void lastNameInputClicked(MouseEvent mouseEvent) {
-        lastNameClicked = true; //marks that uer has clicked this field
-        //focusLostAll(mouseEvent); //lose focus on all input fields
-        last_name.requestFocus(); //focus on name input field
-        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
-    }
-
-    public void departmentInputClicked(MouseEvent mouseEvent) {
-        departmentClicked = true; //marks that uer has clicked this field
-        //focusLostAll(mouseEvent); //lose focus on all input fields
-        department.requestFocus(); //focus on name input field
-        //inputWrapperFN.setStyle("-fx-border-color: #3B8EDC"); //add border when clicked
-    }
 
     public boolean validateFirstName() {
         final String regex = "^.{2,25}$"; //regular expression
@@ -339,22 +335,23 @@ public class DB_GUI_Controller implements Initializable {
         boolean inputValid = matcher.matches(); //check if input matches regex
 
         //checks if above statement is valid
-        if(inputValid){
+        if(inputValid){ //if input is valid
             first_name.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
             alertTextFN.setText(""); //gets rid of any alert text in alert box
             return true; //returns true because the input is valid
         }
-        else {
-            if(first_name.getLength() > 0 ){
+        else if(first_name.isFocused() && !userInput.isEmpty()  ) { //if field is focused and not empty
                 first_name.setStyle("-fx-border-color: red");
                 alertTextFN.setStyle("-fx-text-fill: red");
                 alertTextFN.setStyle("-fx-font-size: 10px");
                 alertTextFN.setText("* First name must be 2-25 characters");
 
-                return false; //returns false because the input is not valid
-            }
-            return false; //return false if user has not yet inputed anything into the text field
+            } else { //if the field is empty or not focused, then remove styling and alert
+            first_name.setStyle("");
+            alertTextFN.setText("");
         }
+        return false; //return false if user has not yet inputed anything into the text field
+
 
     } //end validateFirstName
 
@@ -368,22 +365,22 @@ public class DB_GUI_Controller implements Initializable {
         boolean inputValid = matcher.matches(); //check if input matches regex
 
         //checks if above statement is valid
-        if(inputValid){
+        if(inputValid){ //if input is valid
             last_name.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
             alertTextLN.setText(""); //gets rid of any alert text in alert box
             return true; //returns true because the input is valid
         }
-        else {
-            if(last_name.getLength() > 0){
-                last_name.setStyle("-fx-border-color: red");
-                alertTextLN.setStyle("-fx-text-fill: red");
-                alertTextLN.setStyle("-fx-font-size: 10px");
-                alertTextLN.setText("* Last name must be 2-25 characters");
+        else if(last_name.isFocused() && !userInput.isEmpty()  ) { //if field is focused and not empty
+            last_name.setStyle("-fx-border-color: red");
+            alertTextLN.setStyle("-fx-text-fill: red");
+            alertTextLN.setStyle("-fx-font-size: 10px");
+            alertTextLN.setText("* Last name must be 2-25 characters");
 
-                return false; //returns false because the input is not valid
-            }
-            return false; //return false if user has not yet inputed anything into the text field
+        } else { //if the field is empty or not focused, then remove styling and alert
+            last_name.setStyle("");
+            alertTextLN.setText("");
         }
+        return false; //return false if user has not yet inputed anything into the text field, or if the user input is incorrect.
 
     } //end validateLastName
 
@@ -398,22 +395,22 @@ public class DB_GUI_Controller implements Initializable {
         boolean inputValid = matcher.matches(); //check if input matches regex
 
         //checks if above statement is valid
-        if(inputValid){
+        if(inputValid){ //if input is valid
             department.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
             alertTextDPT.setText(""); //gets rid of any alert text in alert box
             return true; //returns true because the input is valid
         }
-        else {
-            if(last_name.getLength() > 0){
-                department.setStyle("-fx-border-color: red");
-                alertTextDPT.setStyle("-fx-text-fill: red");
-                alertTextDPT.setStyle("-fx-font-size: 10px");
-                alertTextDPT.setText("* Last name must be 2-25 characters");
+        else if(department.isFocused() && !userInput.isEmpty()  ) { //if field is focused and not empty
+            department.setStyle("-fx-border-color: red");
+            alertTextDPT.setStyle("-fx-text-fill: red");
+            alertTextDPT.setStyle("-fx-font-size: 10px");
+            alertTextDPT.setText("* Department name must be 2-25 characters");
 
-                return false; //returns false because the input is not valid
-            }
-            return false; //return false if user has not yet inputed anything into the text field
+        } else { //if the field is empty or not focused, then remove styling and alert
+            department.setStyle("");
+            alertTextDPT.setText("");
         }
+        return false; //return false if user has not yet inputed anything into the text field, or if the user input is incorrect.
 
     } //end validateFirstName
 
@@ -421,19 +418,56 @@ public class DB_GUI_Controller implements Initializable {
 
     //validate major
     public boolean validateMajor() {
-        boolean fieldEmpty = majorComboBox.getValue().toString() == "Major";
-        System.out.println("Please choose a major.");
-        majorComboBox.setStyle("-fx-border-color: #ff5733; -fx-border-width: 2px;");
-        return !fieldEmpty;
+        boolean fieldSelected = !(majorComboBox.getValue().toString() .equals("Major"));
+        //checks if above statement is valid
+        if(fieldSelected){ //if input is valid
+            majorComboBox.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
+            alertTextMajor.setText(""); //gets rid of any alert text in alert box
+            return true; //returns true because the input is valid
+        }
+        else if(majorComboBox.isFocused() && majorComboBox.getValue().toString().equals("Major")  ) { //if field is focused and
+            majorComboBox.setStyle("-fx-border-color: red");
+            alertTextMajor.setStyle("-fx-text-fill: red");
+            alertTextMajor.setStyle("-fx-font-size: 10px");
+            alertTextMajor.setText("* Please select a major");
+
+        } else { //if the field is empty or not focused, then remove styling and alert
+            majorComboBox.setStyle("");
+            alertTextMajor.setText("");
+        }
+        return false; //return false if user has not yet inputed anything into the text field, or if the user input is incorrect.
 
     }
 
-    //validate email
     public boolean validateEmail() {
-        boolean fieldEmpty = email.getText().isEmpty();
-        return !fieldEmpty;
+        final String regex = "(([a-zA-Z])(\\w)+)@(farmingdale).(edu)"; //regular expression
+        String userInput = email.getText(); //gets text from input
 
-    }
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(userInput);
+
+        boolean inputValid = matcher.matches(); //check if input matches regex
+
+        //checks if above statement is valid
+        if(inputValid){ //if input is valid
+            email.setStyle("-fx-border-color: #15bc98"); //sets border color of input field to green
+            alertTextEmail.setText(""); //gets rid of any alert text in alert box
+            return true; //returns true because the input is valid
+        }
+        else if(email.isFocused() && !userInput.isEmpty()  ) { //if field is focused and not empty
+            email.setStyle("-fx-border-color: red");
+            alertTextEmail.setStyle("-fx-text-fill: red");
+            alertTextEmail.setStyle("-fx-font-size: 10px");
+            alertTextEmail.setText("* Email must end with @farmingdale.edu");
+
+        } else { //if the field is empty or not focused, then remove styling and alert
+            email.setStyle("");
+            alertTextEmail.setText("");
+        }
+        return false; //return false if user has not yet inputed anything into the text field
+
+
+    } //end validateEmail
 
 
     private void checkValidationStatus() {
@@ -443,6 +477,8 @@ public class DB_GUI_Controller implements Initializable {
         //enable register button if all fields are valid
         deleteBtn.setDisable(!allFieldsValid);
         editBtn.setDisable(!allFieldsValid);
+        addBtn.setDisable(!allFieldsValid);
+        clearBtn.setDisable(!allFieldsValid);
     }
 
 
