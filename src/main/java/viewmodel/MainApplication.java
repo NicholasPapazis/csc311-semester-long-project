@@ -31,6 +31,7 @@ public class MainApplication extends Application {
         showScene1();
     }
 
+
     private void showScene1() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/splashscreen.fxml"));
