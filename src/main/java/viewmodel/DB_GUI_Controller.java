@@ -30,14 +30,10 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 
 
 public class DB_GUI_Controller implements Initializable {
@@ -174,7 +170,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void logOut(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
             Scene scene = new Scene(root, 900, 600);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").getFile());
             Stage window = (Stage) menuBar.getScene().getWindow();

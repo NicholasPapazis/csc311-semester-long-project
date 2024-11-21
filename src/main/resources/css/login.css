@@ -1,0 +1,48 @@
+#leftSection {
+    -fx-background-color: #15bc98;
+}
+
+.text_field {
+    -fx-effect: null;
+    /*-fx-border-color: white;*/
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-max-width: 350px;
+    -fx-min-width: 350px;
+    -fx-pref-height: 40px;
+    -fx-prompt-text-fill: #9c9c9c;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused{
+    -fx-border-color: transparent;
+}
+
+#loginButton {
+    -fx-background-color: #15bc98;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 3;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 40px;
+}
+
+.createAccount {
+    -fx-font-size: 15px;
+}
+
+#logoBorder {
+    -fx-border-color: white;
+    -fx-border-width: 5px;
+    -fx-border-radius: 5px;
+}
+
+#signUpBtn {
+    -fx-background-color: transparent;
+}
