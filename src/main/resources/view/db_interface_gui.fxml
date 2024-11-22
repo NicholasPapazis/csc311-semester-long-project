@@ -14,7 +14,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -56,9 +56,9 @@
       <left>
           <VBox prefHeight="538.0" prefWidth="218.0" styleClass="left_pane" BorderPane.alignment="CENTER">
               <children>
-                  <AnchorPane prefHeight="132.0" prefWidth="130.0">
+                  <AnchorPane prefHeight="78.0" prefWidth="220.0">
                       <children>
-                          <ImageView fx:id="img_view" fitHeight="98.0" fitWidth="94.0" layoutX="61.0" layoutY="24.0" onMouseClicked="#showImage" pickOnBounds="true" preserveRatio="true" styleClass="image_view">
+                          <ImageView fx:id="img_view" fitHeight="98.0" fitWidth="94.0" layoutX="60.0" layoutY="8.0" onMouseClicked="#showImage" pickOnBounds="true" preserveRatio="true" styleClass="image_view">
                               <image>
                                   <Image url="@../images/profile.png" />
                               </image>
@@ -164,14 +164,15 @@
           </VBox>
       </left>
       <bottom>
-          <HBox prefHeight="22.0" prefWidth="539.0" styleClass="admin_section" BorderPane.alignment="CENTER">
-         <children>
-                  <ProgressBar fx:id="progressBar" prefHeight="11.0" prefWidth="903.0" progress="0.0">
+          <Pane fx:id="statusBox" prefHeight="29.0" prefWidth="900.0">
+                  <ProgressBar fx:id="progressBar" prefHeight="30.0" prefWidth="903.0" progress="0.0" scaleZ="0.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </ProgressBar>
-         </children></HBox>
+
+                        <Text fx:id="statusText" layoutX="6.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </Pane>
       </bottom>
       <center>
           <TableView fx:id="tv" onMouseClicked="#selectedItemTV" prefHeight="544.0" prefWidth="574.0" styleClass="table_view" BorderPane.alignment="CENTER">
@@ -185,7 +186,4 @@
               </columns>
           </TableView>
       </center>
-      <padding>
-          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-      </padding>
   </BorderPane>

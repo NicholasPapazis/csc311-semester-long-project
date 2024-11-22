@@ -3,6 +3,7 @@ package viewmodel;
 import com.azure.storage.blob.BlobClient;
 import dao.DbConnectivityClass;
 import dao.StorageUploader;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Person;
 import service.MyLogger;
 
@@ -40,6 +42,8 @@ public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store = new StorageUploader();
 
+    @FXML
+    Text statusText;
     @FXML
     Text alertTextFN;
     @FXML
@@ -133,6 +137,7 @@ public class DB_GUI_Controller implements Initializable {
         majorComboBox.getSelectionModel().selectFirst();
 
 
+        progressBar.setOpacity(0); //makes progress bar invisible when it is not being used
 
 
 
@@ -226,6 +231,8 @@ public class DB_GUI_Controller implements Initializable {
         if (file != null) {
             img_view.setImage(new Image(file.toURI().toString()));
             //need to add the code here
+            progressBar.setOpacity(1); //make progress bar visible when in use.
+
             Task<Void> uploadTask = createUploadTask(file, progressBar);
             progressBar.progressProperty().bind(uploadTask.progressProperty());
             new Thread(uploadTask).start();
@@ -481,6 +488,9 @@ public class DB_GUI_Controller implements Initializable {
 
     //here is the task that I added to upload the image in its own thread
     private Task<Void> createUploadTask(File file, ProgressBar progressBar) {
+        progressBar.setOpacity(1);
+        progressBar.progressProperty().unbind();
+
         return new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -503,6 +513,19 @@ public class DB_GUI_Controller implements Initializable {
                         updateProgress(progress, 100);
                     }
                 }
+
+
+                    progressBar.setOpacity(0); //hide progress bar when finished with task.
+                    statusText.setText("Profile image updated successfully.");
+                    FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
+                    fadeOut.setDelay(Duration.seconds(3));//delays fade
+                    fadeOut.setFromValue(1);
+                    fadeOut.setToValue(0);
+                    fadeOut.setOnFinished(e -> {
+                        statusText.setText("Profile image updated successfully.");
+                    });
+                    fadeOut.play();
+
 
                 return null;
             }

@@ -38,7 +38,7 @@ public class DbConnectivityClass {
                     String major = resultSet.getString("major");
                     String email = resultSet.getString("email");
                     String imageURL = resultSet.getString("imageURL");
-                    data.add(new Person(id, first_name, last_name, department, major, email, imageURL));
+                    data.add(new Person(id, first_name, last_name, department, major, email, imageURL)); //adds the data to the observable list
                 }
                 preparedStatement.close();
                 conn.close();

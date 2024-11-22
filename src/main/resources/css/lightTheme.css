@@ -158,6 +158,10 @@
 
 }
 
+.table-view .filler {
+    -fx-background-color: #15bc98;
+}
+
 .table-view .cell {
     -fx-border-color: transparent transparent grey transparent; /*outlines only horizontal lines*/
     -fx-border-width: .1px;
@@ -173,3 +177,17 @@
 .alert-text {
     -fx-text-fill: red;
 }
+
+#statusBox {
+    -fx-background-color: #eeeeee;
+}
+
+#statusText{
+    -fx-fill:  #15bc98;
+}
+
+#progressBar{
+    -fx-pref-width: 900px;
+    -fx-font-size: 25px;
+}
+

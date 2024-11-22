@@ -51,6 +51,7 @@ public class MainApplication extends Application {
             Scene currentScene = primaryStage.getScene();
             Parent currentRoot = currentScene.getRoot();
             currentScene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            this.primaryStage.setResizable(false);
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), currentRoot);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
