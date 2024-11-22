@@ -160,6 +160,16 @@ public class DB_GUI_Controller implements Initializable {
             data.add(p);
             clearForm();
 
+            statusText.setText("A new user was inserted successfully.");
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
+            fadeOut.setDelay(Duration.seconds(3));//delays fade
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.setOnFinished(e -> {
+                statusText.setText("A new user was inserted successfully.");
+            });
+            fadeOut.play();
+
     }
 
     @FXML
@@ -214,6 +224,15 @@ public class DB_GUI_Controller implements Initializable {
         data.remove(p);
         data.add(index, p2);
         tv.getSelectionModel().select(index);
+        statusText.setText("User was updated successfully.");
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
+        fadeOut.setDelay(Duration.seconds(3));//delays fade
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(e -> {
+            statusText.setText("User was updated successfully.");
+        });
+        fadeOut.play();
     }
 
     @FXML

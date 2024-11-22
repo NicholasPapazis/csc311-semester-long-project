@@ -1,12 +1,21 @@
 package dao;
 
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import model.Person;
 import service.MyLogger;
 
+
 import java.sql.*;
 public class DbConnectivityClass {
+
+    @FXML
+    Text statusText;
+
     final static String DB_NAME="CSC311_BD_TEMP";
         MyLogger lg= new MyLogger();
         final static String SQL_SERVER_URL = "jdbc:mysql://csc311papazisserver.mysql.database.azure.com";//update this server name
@@ -164,6 +173,7 @@ public class DbConnectivityClass {
                 int row = preparedStatement.executeUpdate();
                 if (row > 0) {
                     lg.makeLog("A new user was inserted successfully.");
+
                 }
                 preparedStatement.close();
                 conn.close();
