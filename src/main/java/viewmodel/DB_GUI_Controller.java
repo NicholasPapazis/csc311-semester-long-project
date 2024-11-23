@@ -177,7 +177,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        majorComboBox.setValue(null);
+        majorComboBox.setValue(Major.values()[0]);
         email.setText("");
         imageURL.setText("");
     }
@@ -266,14 +266,18 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
-        Person p = tv.getSelectionModel().getSelectedItem();
-        first_name.setText(p.getFirstName());
+        Person p = tv.getSelectionModel().getSelectedItem();//selects the person object that corresponds to the table row that was selected
+        first_name.setText(p.getFirstName()); //
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
         //majorComboBox.setValue(viewmodel.Major.valueOf(p.getMajor()));
         majorComboBox.setValue(Major.valueOf(p.getMajor()));
         email.setText(p.getEmail());
-        imageURL.setText(p.getImageURL());
+        imageURL.setText("https://papaziscsc311storage.blob.core.windows.net/media-files/" + p.getImageURL());
+        store.listImages();
+        //img_view.setImage(new Image("https://developer.apple.com/wwdc24/images/og/phase-3-xjf/wwdc24-p3-og.png"));*/
+        img_view.setImage(store.loadImageFromBlob(p.getImageURL()));
+        System.out.println("image here");
     }
 
     public void lightTheme(ActionEvent actionEvent) {

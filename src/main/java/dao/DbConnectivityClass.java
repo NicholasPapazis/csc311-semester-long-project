@@ -13,33 +13,32 @@ import service.MyLogger;
 import java.sql.*;
 public class DbConnectivityClass {
 
-    @FXML
-    Text statusText;
-
+    //DB_NAME can not be changed after it is assigned.
     final static String DB_NAME="CSC311_BD_TEMP";
         MyLogger lg= new MyLogger();
-        final static String SQL_SERVER_URL = "jdbc:mysql://csc311papazisserver.mysql.database.azure.com";//update this server name
-        final static String DB_URL = SQL_SERVER_URL+"/"+DB_NAME;//update this database name
-        final static String USERNAME = "papazisAdmin";// update this username
-        final static String PASSWORD = "farmingdale24*";// update this password
+        final static String SQL_SERVER_URL = "jdbc:mysql://csc311papazisserver.mysql.database.azure.com";//holds the JDBC URL for connecting to the SQL server, which is located on azure
+        final static String DB_URL = SQL_SERVER_URL+"/"+DB_NAME;//combines the SQL server URL with the database name, to create the entire database URL
+        final static String USERNAME = "papazisAdmin";//username needed for DB login
+        final static String PASSWORD = "farmingdale24*";//password needed for DB login
 
 
+        //observable array list holds objects of Person.  Updates UI components when changes are made to the list.
         private final ObservableList<Person> data = FXCollections.observableArrayList();
 
         // Method to retrieve all data from the database and store it into an observable list to use in the GUI tableview.
 
-
+        //adds data to observable list from SQL table, and returns the observable list
         public ObservableList<Person> getData() {
-            connectToDatabase();
+            connectToDatabase(); //connects to DB
             try {
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                String sql = "SELECT * FROM users ";
+                String sql = "SELECT * FROM users "; //selects the whole table
                 PreparedStatement preparedStatement = conn.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (!resultSet.isBeforeFirst()) {
                     lg.makeLog("No data");
                 }
-                while (resultSet.next()) {
+                while (resultSet.next()) { //iterates through resultSet and adds data row by row to the observable list.
                     int id = resultSet.getInt("id");
                     String first_name = resultSet.getString("first_name");
                     String last_name = resultSet.getString("last_name");
@@ -66,29 +65,31 @@ public class DbConnectivityClass {
 
                 //First, connect to MYSQL server and create the database if not created
                 Connection conn = DriverManager.getConnection(SQL_SERVER_URL, USERNAME, PASSWORD);
-                Statement statement = conn.createStatement();
-                statement.executeUpdate("CREATE DATABASE IF NOT EXISTS "+DB_NAME+"");
+                Statement statement = conn.createStatement(); //creates a statement object.  A Statement is used to execute SQL queries on the DB
+                statement.executeUpdate("CREATE DATABASE IF NOT EXISTS "+DB_NAME+""); //executes the statement to create DB if it does not already exist.
                 statement.close();
-                conn.close();
+                conn.close(); //close DB connection, no more DB operations can be performed
 
                 //Second, connect to the database and create the table "users" if cot created
-                conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                statement = conn.createStatement();
+                conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //finds and connects to the correct DB driver
+                statement = conn.createStatement(); //creates a statement object
+                //creates table if it does not already exist, of the users/students information
                 String sql = "CREATE TABLE IF NOT EXISTS users (" + "id INT( 10 ) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
                         + "first_name VARCHAR(200) NOT NULL," + "last_name VARCHAR(200) NOT NULL,"
                         + "department VARCHAR(200),"
                         + "major VARCHAR(200),"
                         + "email VARCHAR(200) NOT NULL UNIQUE,"
                         + "imageURL VARCHAR(200))";
-                statement.executeUpdate(sql);
+                statement.executeUpdate(sql); //executes statement to create the table
 
                 //check if we have users in the table users
                 statement = conn.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users");
+                //resultSet stores the results of the query
+                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users"); //counts total number of rows in users table
 
-                if (resultSet.next()) {
-                    int numUsers = resultSet.getInt(1);
-                    if (numUsers > 0) {
+                if (resultSet.next()) { //.next() moves to the next row in result set
+                    int numUsers = resultSet.getInt(1); //gets the value from the first column in the current row of the resultSet
+                    if (numUsers > 0) { //checks if there is at least one user in the table
                         hasRegistredUsers = true;
                     }
                 }
@@ -101,7 +102,7 @@ public class DbConnectivityClass {
             }
 
             return hasRegistredUsers;
-        }
+        }//end connectToDatabase()
 
         public void queryUserByLastName(String name) {
             connectToDatabase();
