@@ -54,6 +54,8 @@ public class DB_GUI_Controller implements Initializable {
     Text alertTextMajor;
     @FXML
     Text alertTextEmail;
+    @FXML
+    Text alertTextURL;
 
 
     @FXML
@@ -152,23 +154,23 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void addNewRecord() {
 
-            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    majorComboBox.getValue().toString(), email.getText(), imageURL.getText());
-            cnUtil.insertUser(p);
-            cnUtil.retrieveId(p);
-            p.setId(cnUtil.retrieveId(p));
-            data.add(p);
-            clearForm();
+        Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
+                majorComboBox.getValue().toString(), email.getText(), alertTextURL.getText());
+        cnUtil.insertUser(p);
+        cnUtil.retrieveId(p);
+        p.setId(cnUtil.retrieveId(p));
+        data.add(p);
+        clearForm();
 
+        statusText.setText("A new user was inserted successfully.");
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
+        fadeOut.setDelay(Duration.seconds(3));//delays fade
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(e -> {
             statusText.setText("A new user was inserted successfully.");
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
-            fadeOut.setDelay(Duration.seconds(3));//delays fade
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.setOnFinished(e -> {
-                statusText.setText("A new user was inserted successfully.");
-            });
-            fadeOut.play();
+        });
+        fadeOut.play();
 
     }
 
@@ -179,7 +181,9 @@ public class DB_GUI_Controller implements Initializable {
         department.setText("");
         majorComboBox.setValue(Major.values()[0]);
         email.setText("");
-        imageURL.setText("");
+        //imageURL.setText("");
+        img_view.setImage(new Image(getClass().getResourceAsStream("/images/profile.png")));
+        alertTextURL.setText("default.png");
     }
 
     @FXML
@@ -219,7 +223,7 @@ public class DB_GUI_Controller implements Initializable {
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                majorComboBox.getValue().toString(), email.getText(),  imageURL.getText());
+                majorComboBox.getValue().toString(), email.getText(),  alertTextURL.getText());
         cnUtil.editUser(p.getId(), p2);
         data.remove(p);
         data.add(index, p2);
@@ -249,6 +253,7 @@ public class DB_GUI_Controller implements Initializable {
         File file = (new FileChooser()).showOpenDialog(img_view.getScene().getWindow());
         if (file != null) {
             img_view.setImage(new Image(file.toURI().toString()));
+            alertTextURL.setText(file.getName()); //gets just the file name
             //need to add the code here
             progressBar.setOpacity(1); //make progress bar visible when in use.
 
@@ -273,7 +278,8 @@ public class DB_GUI_Controller implements Initializable {
         //majorComboBox.setValue(viewmodel.Major.valueOf(p.getMajor()));
         majorComboBox.setValue(Major.valueOf(p.getMajor()));
         email.setText(p.getEmail());
-        imageURL.setText("https://papaziscsc311storage.blob.core.windows.net/media-files/" + p.getImageURL());
+        //imageURL.setText("https://papaziscsc311storage.blob.core.windows.net/media-files/" + p.getImageURL());
+        alertTextURL.setText(p.getImageURL());
         store.listImages();
         //img_view.setImage(new Image("https://developer.apple.com/wwdc24/images/og/phase-3-xjf/wwdc24-p3-og.png"));*/
         img_view.setImage(store.loadImageFromBlob(p.getImageURL()));
@@ -367,12 +373,12 @@ public class DB_GUI_Controller implements Initializable {
             return true; //returns true because the input is valid
         }
         else if(first_name.isFocused() && !userInput.isEmpty()  ) { //if field is focused and not empty
-                first_name.setStyle("-fx-border-color: red");
-                alertTextFN.setStyle("-fx-text-fill: red");
-                alertTextFN.setStyle("-fx-font-size: 10px");
-                alertTextFN.setText("* First name must be 2-25 characters");
+            first_name.setStyle("-fx-border-color: red");
+            alertTextFN.setStyle("-fx-text-fill: red");
+            alertTextFN.setStyle("-fx-font-size: 10px");
+            alertTextFN.setText("* First name must be 2-25 characters");
 
-            } else { //if the field is empty or not focused, then remove styling and alert
+        } else { //if the field is empty or not focused, then remove styling and alert
             first_name.setStyle("");
             alertTextFN.setText("");
         }
@@ -538,16 +544,16 @@ public class DB_GUI_Controller implements Initializable {
                 }
 
 
-                    progressBar.setOpacity(0); //hide progress bar when finished with task.
+                progressBar.setOpacity(0); //hide progress bar when finished with task.
+                statusText.setText("Profile image updated successfully.");
+                FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
+                fadeOut.setDelay(Duration.seconds(3));//delays fade
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.setOnFinished(e -> {
                     statusText.setText("Profile image updated successfully.");
-                    FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), statusText);
-                    fadeOut.setDelay(Duration.seconds(3));//delays fade
-                    fadeOut.setFromValue(1);
-                    fadeOut.setToValue(0);
-                    fadeOut.setOnFinished(e -> {
-                        statusText.setText("Profile image updated successfully.");
-                    });
-                    fadeOut.play();
+                });
+                fadeOut.play();
 
 
                 return null;

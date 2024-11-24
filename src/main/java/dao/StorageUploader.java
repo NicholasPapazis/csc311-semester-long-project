@@ -30,13 +30,14 @@ public class StorageUploader {
         return containerClient;
     }
 
+    //lists all files in container
     public void listImages() {
         System.out.println("\nListing blobs...");
         // List the blob(s) in the container.
         for (BlobItem blobItem : containerClient.listBlobs()) {
             System.out.println("\t" + blobItem.getName());
         }
-        BlobClient blobClient = containerClient.getBlobClient("fsc.png");
+        //BlobClient blobClient = containerClient.getBlobClient("fsc.png");
     }
 
     public Image loadImageFromBlob(String blobName){

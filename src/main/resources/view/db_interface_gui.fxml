@@ -127,14 +127,11 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-                  <TextField fx:id="imageURL" promptText="imageURL" styleClass="text_field">
-                      <VBox.margin>
-                          <Insets left="10.0" right="10.0" />
-                      </VBox.margin>
-               <opaqueInsets>
-                  <Insets bottom="10.0" />
-               </opaqueInsets>
-                  </TextField>
+            <Button mnemonicParsing="false" onAction="#showImage" prefHeight="26.0" prefWidth="198.0" text="Upload profile Photo">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Button>
             <Text fx:id="alertTextURL" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="alert-text" wrappingWidth="193.33669662475586">
                <VBox.margin>
                   <Insets left="10.0" />
