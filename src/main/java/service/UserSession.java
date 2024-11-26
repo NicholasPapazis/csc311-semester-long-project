@@ -6,7 +6,9 @@ import java.util.prefs.Preferences;
 
 public class UserSession {
 
-    private static UserSession instance; //create a variable with the type of the class
+    //volatile allows for instance to be visible on thread
+    private static volatile UserSession instance; //create a variable with the type of the class
+
 
     private String userName; //variable for userName
 
