@@ -19,7 +19,7 @@
     -fx-border-color: transparent;
 }
 
-#loginButton {
+#loginButton, #registerButton {
     -fx-background-color: #15bc98;
     -fx-cursor: hand;
     -fx-font-family: "Arial";
