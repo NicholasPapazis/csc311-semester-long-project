@@ -191,3 +191,10 @@
     -fx-font-size: 25px;
 }
 
+.menu-item {
+    -fx-text-fill: #acacac;
+}
+
+.menu-item:selected {
+    -fx-text-fill: black;
+}

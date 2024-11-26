@@ -32,6 +32,8 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -57,6 +59,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     Text alertTextURL;
 
+    @FXML
+    MenuItem newItem, ChangePic, logOut, editItem, deleteItem, ClearItem, CopyItem, lightTheme, darkTheme, displayAbout;
 
     @FXML
     ComboBox<Major> majorComboBox;
@@ -88,6 +92,8 @@ public class DB_GUI_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         try {
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));

@@ -45,12 +45,12 @@
 }
 
 .menu_options .label{
-    -fx-background-color: black;
+    -fx-background-color: white;
         -fx-text-fill: white;
 
 }
 .menu_items{
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 .text_field_pane {
     -fx-background-color: #424242;
