@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import service.UserSession;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,9 @@ public class LoginController {
     Text alertTextUsername;
     @FXML
     Text alertTextPassword;
+
+    @FXML
+    Text alertTextLogin;
 
     @FXML
     Button loginButton;
@@ -82,16 +86,28 @@ public class LoginController {
     }
     @FXML
     public void login(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        UserSession session = UserSession.login(UsernameField.getText(), PasswordField.getText()); //create new UserSession instance for user
+        if(session != null){ //login successful
+            System.out.println("User login successful");
+
+            //if login successful, then navigate to db_interface_gui.fxml page
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+                Scene scene = new Scene(root, 900, 600);
+                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        else{
+            alertTextLogin.setText("* Incorrect username or password"); //if user not registered, then display message
+            System.out.print("Incorrect username or password");
+        }
+
     }
 
     public void signUp(ActionEvent actionEvent) {

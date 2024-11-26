@@ -55,5 +55,6 @@
          <Font size="15.0" />
       </font>
    </Button>
+   <Text fx:id="alertTextLogin" fill="RED" layoutX="479.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="350.0" />
 
 </Pane>

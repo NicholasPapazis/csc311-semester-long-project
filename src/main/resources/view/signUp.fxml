@@ -62,5 +62,6 @@
    </Label>
    <TextField id="emailTextField" fx:id="EmailField" layoutX="479.0" layoutY="176.0" prefHeight="35.0" prefWidth="350.0" promptText="Email" styleClass="text_field" />
    <Text fx:id="alertTextEmail" fill="RED" layoutX="479.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="350.0" />
+   <Text fx:id="alertTextSignUp" fill="RED" layoutX="479.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="350.0" />
 
 </Pane>

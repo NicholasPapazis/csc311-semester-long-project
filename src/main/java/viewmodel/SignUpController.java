@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import service.UserSession;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +24,9 @@ public class SignUpController {
     Text alertTextUsername;
     @FXML
     Text alertTextPassword;
+
+    @FXML
+    Text alertTextSignUp;
 
     @FXML
     TextField EmailField;
@@ -61,16 +65,31 @@ public class SignUpController {
     }
 
     public void signUp(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        boolean isRegistered = UserSession.register(UsernameField.getText(), PasswordField.getText(), "admin");
+        if (isRegistered) { //registration successful
+            System.out.println("user registered successfully");
+
+            //navigate to register page if login successful
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+                Scene scene = new Scene(root, 900, 600);
+                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        else{
+
+            alertTextSignUp.setText("username already exists");
+            System.out.println("username already exists");
+        }
+
+
+
     }
 
     public void login(ActionEvent actionEvent) {
@@ -200,6 +219,8 @@ public class SignUpController {
         //enable register button if all fields are valid
         registerButton.setDisable(!allFieldsValid);
     }
+
+
 
 
 }
