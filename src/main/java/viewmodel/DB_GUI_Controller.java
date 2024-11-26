@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 import model.Person;
 import service.MyLogger;
 
@@ -93,6 +95,7 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        tv.setEditable(true);//allow the TableView to be editable
 
         try {
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -101,10 +104,49 @@ public class DB_GUI_Controller implements Initializable {
             tv_department.setCellValueFactory(new PropertyValueFactory<>("department"));
             tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+            //create text field inside each cell when clicked
+            tv_fn.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_ln.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_department.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_email.setCellFactory(TextFieldTableCell.forTableColumn());
+
+            //change data in the person instance if text in changed in the cell
+            tv_fn.setOnEditCommit(event -> {
+                Person person = event.getRowValue(); //get the person in the row
+                person.setFirstName(event.getNewValue()); //change their value
+                first_name.setText(person.getFirstName()); //update TextField value
+                editRecord(); //edit record so that it saves in the database
+            });
+            tv_ln.setOnEditCommit(event -> {
+                Person person = event.getRowValue(); //get the person in the row
+                person.setLastName(event.getNewValue()); //change their value
+                last_name.setText(person.getLastName()); //update TextField value
+                editRecord(); //edit record so that it saves in the database
+            });
+            tv_department.setOnEditCommit(event -> {
+                Person person = event.getRowValue(); //get the person in the row
+                person.setDepartment(event.getNewValue()); //change their value
+                department.setText(person.getDepartment()); //update TextField value
+                editRecord(); //edit record so that it saves in the database
+            });
+            tv_email.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                person.setEmail(event.getNewValue());
+                email.setText(person.getEmail());
+                editRecord();
+            });
+
+
             tv.setItems(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        //notifies user that they can edit value in the cell
+        tv.setOnMouseMoved((MouseEvent event) -> {
+            statusText.setText("Double click to edit value");
+        });
 
 
         //disable delete and edit button
@@ -244,6 +286,7 @@ public class DB_GUI_Controller implements Initializable {
         });
         fadeOut.play();
     }
+
 
     @FXML
     protected void deleteRecord() {
