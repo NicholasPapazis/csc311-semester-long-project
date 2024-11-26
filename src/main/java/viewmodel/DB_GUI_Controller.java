@@ -477,6 +477,7 @@ public class DB_GUI_Controller implements Initializable {
 
     }
 
+
     public boolean validateEmail() {
         final String regex = "(([a-zA-Z])(\\w)+)@(farmingdale).(edu)"; //regular expression
         String userInput = email.getText(); //gets text from input
@@ -566,5 +567,8 @@ public class DB_GUI_Controller implements Initializable {
             }
         };
     }
+
+
+
 
 }

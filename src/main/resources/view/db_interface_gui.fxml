@@ -24,7 +24,7 @@
               <menus>
                   <Menu mnemonicParsing="false" styleClass="menu_options" text="File">
                       <items>
-                          <MenuItem fx:id="newItem" mnemonicParsing="false" onAction="#addRecord" styleClass="menu_items"  text="New" />
+                          <MenuItem fx:id="newItem" mnemonicParsing="false" onAction="#addRecord" styleClass="menu_items" text="New" />
                           <MenuItem fx:id="ChangePic" mnemonicParsing="false" onAction="#showImage" styleClass="menu_items" text="Change Pic" />
                           <MenuItem fx:id="logOut" mnemonicParsing="false" onAction="#logOut" styleClass="menu_items" text="Log out" />
                           <MenuItem mnemonicParsing="false" onAction="#closeApplication" styleClass="menu_items" text="Exit Program" />
@@ -132,7 +132,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Button>
-            <Text fx:id="alertTextURL" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="alert-text" wrappingWidth="193.33669662475586">
+            <Text fx:id="alertTextURL" fill="#ff000000" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="alert-text" wrappingWidth="193.33669662475586">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
