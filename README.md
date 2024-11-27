@@ -1,7 +1,7 @@
 ![logo](https://github.com/user-attachments/assets/23b7bc91-9269-4226-b129-faf616423dd3)
-# **Portal Pro** - Student Registration Application
+# **PortalPro** - Student Registration Application
 
-**Portal Pro** simplifies the process of managing student records. Whether you're adding, updating, or viewing student data, this application provides a clean, intuitive interface and powerful features to keep everything organized.
+**PortalPro** simplifies the process of managing student records. Whether you're adding, updating, or viewing student data, this application provides a clean, intuitive interface and powerful features to keep everything organized.
 
 ## **Features**
 
