@@ -14,8 +14,13 @@
 ### 2. **Advanced Registration with Validation**
    - Ensures users enter a valid @farmingdale.edu email and passwords between 2 to 25 characters, using regular expression (regex) validation.
 
-### 3. **User Preferences**
-   - Saves user preferences like username and email via the Java Preferences API, so you don’t have to re-enter them every time.
+### 3. **User Session and Preferences**
+   - Signup and login functionality implemented using Java Preferences API.
+   - Record username and password upon sign-in in the Preference file
+
+
+https://github.com/user-attachments/assets/0325ed6f-7ac2-45af-8d08-2ce641b02f9e
+
 
 ### 4. **Azure SQL Database Integration**
    - All student data is securely stored in an Azure SQL Database, offering scalability and secure access.
