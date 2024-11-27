@@ -50,6 +50,11 @@
                           <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="About" />
                       </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" styleClass="menu_options" text="Reports">
+                      <items>
+                          <MenuItem fx:id="displayReport" mnemonicParsing="false" onAction="#createBarChartOfMajors" styleClass="menu_items" text="display chart" />
+                      </items>
+                  </Menu>
               </menus>
           </MenuBar>
       </top>

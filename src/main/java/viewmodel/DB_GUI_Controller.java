@@ -14,6 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -23,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
@@ -34,10 +39,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +48,8 @@ public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store = new StorageUploader();
 
+
+    private BarChart<String, Number> barChart;
     @FXML
     Text statusText;
     @FXML
@@ -94,6 +98,7 @@ public class DB_GUI_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         tv.setEditable(true);//allow the TableView to be editable
 
@@ -610,6 +615,58 @@ public class DB_GUI_Controller implements Initializable {
             }
         };
     }
+
+
+    @FXML
+    private void createBarChartOfMajors(){
+        Map<String, Integer> majorCount = new HashMap<>(); //hashmap will store the number of times each major occurs
+        //iterates through data
+        for(Person p: data){
+            String major = p.getMajor(); //gets major of current item in data
+            majorCount.put(major, majorCount.getOrDefault(major, 0) + 1);
+        }
+
+        //iterates through HashMap and prints number for each major
+        for(Map.Entry<String, Integer> major: majorCount.entrySet()){
+            System.out.println(major.getKey() + ": " + major.getValue());
+        }
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Major");
+        yAxis.setLabel("Count");
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+
+        barChart.legendVisibleProperty().setValue(false); //hides graph legend
+
+        XYChart.Series<String, Number> set1 = new XYChart.Series<>();
+
+        for(Map.Entry<String, Integer> major: majorCount.entrySet()){
+
+            set1.getData().add(new XYChart.Data(major.getKey(), major.getValue()));
+
+            System.out.println(major.getKey() + ": " + major.getValue());
+
+        }
+        barChart.getData().addAll(set1);//adds data to barChart
+
+        // Create a new Stage (pop-up window) for the chart
+        Stage popupStage = new Stage();
+        Scene popupScene = new Scene(barChart, 600, 400);
+        popupStage.setTitle("Student Major Chart");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setScene(popupScene);
+
+        // Show the pop-up window
+        popupStage.show();
+
+
+    } //createBarChartOfMajors() end
+
+
+
+
 
 
 
