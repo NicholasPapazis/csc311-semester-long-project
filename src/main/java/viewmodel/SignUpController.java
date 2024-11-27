@@ -199,7 +199,7 @@ public class SignUpController {
             PasswordField.setStyle("-fx-border-color: red");
             alertTextPassword.setStyle("-fx-text-fill: red");
             alertTextPassword.setStyle("-fx-font-size: 10px");
-            alertTextPassword.setText("* First name must be 2-25 characters");
+            alertTextPassword.setText("* Password must be 2-25 characters");
 
         } else { //if the field is empty or not focused, then remove styling and alert
             PasswordField.setStyle("");
