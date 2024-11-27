@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -651,18 +652,49 @@ public class DB_GUI_Controller implements Initializable {
         }
         barChart.getData().addAll(set1);//adds data to barChart
 
+        Button printBtn = new Button("Print Chart");//button to print the pdf of chart
+
+        //create vbox to hold components of popup window
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(printBtn, barChart);
         // Create a new Stage (pop-up window) for the chart
         Stage popupStage = new Stage();
-        Scene popupScene = new Scene(barChart, 600, 400);
         popupStage.setTitle("Student Major Chart");
         popupStage.initModality(Modality.APPLICATION_MODAL);
+        Scene popupScene = new Scene(vbox, 600, 400);
         popupStage.setScene(popupScene);
 
         // Show the pop-up window
         popupStage.show();
 
+        printBtn.setOnAction(event -> {
+            exportBarChartToPDF(barChart, popupStage);
+        });
 
     } //createBarChartOfMajors() end
+
+
+
+    //exports bar chart
+    public void exportBarChartToPDF(BarChart<String, Number> barChart, Stage stage) {
+
+        PrinterJob printerJob = PrinterJob.createPrinterJob(); //create a printer job
+
+        if (printerJob != null && printerJob.showPrintDialog(stage)) { //if printerJob runs without any errors
+
+            boolean success = printerJob.printPage(barChart); //prints the chart
+
+            if (success) { //runs if export is successfully
+                printerJob.endJob(); //closes the printer job
+                System.out.println("export successful");
+            } else {
+                System.out.println("export failed");
+            }
+        } else {
+            System.out.println("chart could not be exported");
+        }
+    } //end exportBarChartToPDF
+
 
 
 
