@@ -1,72 +1,48 @@
-Student Registration Application
+![logo](https://github.com/user-attachments/assets/23b7bc91-9269-4226-b129-faf616423dd3)
+# **Portal Pro** - Student Registration Application
 
-The Student Registration Application is designed to simplify the process of managing student records. Whether you're adding new students, updating their details, or generating insightful reports, this application provides an intuitive interface and robust features for managing student data efficiently.
-Features
-1. CRUD Functionality
+**Portal Pro** simplifies the process of managing student records. Whether you're adding, updating, or viewing student data, this application provides a clean, intuitive interface and powerful features to keep everything organized.
 
-The app supports CRUD (Create, Read, Update, Delete) functionality for student records:
+## **Features**
 
-    Create: You can add new student records to the system with ease.
-    Read: View a table of all students with their details fetched directly from the database.
-    Update: Edit any student's information directly within the table view.
-    Delete: Remove a student record when it's no longer needed.
+### 1. **CRUD Functionality**
+   - **Create**: Add new student records easily.
+   - **Read**: View student details in a simple table.
+   - **Update**: Edit records directly within the table.
+   - **Delete**: Remove student records when necessary.
 
-2. Advanced Registration with RegEx Validation
+### 2. **Advanced Registration with Validation**
+   - Ensures users enter a valid @farmingdale.edu email and passwords between 2 to 25 characters, using regular expression (regex) validation.
 
-    During registration, the app ensures that users enter a valid @farmingdale.edu email address and passwords between 2 to 25 characters.
-    The app uses advanced regular expressions (regex) to validate these inputs and give you instant feedback if something’s wrong.
+### 3. **User Preferences**
+   - Saves user preferences like username and email via the Java Preferences API, so you don’t have to re-enter them every time.
 
-3. User Preferences
+### 4. **Azure SQL Database Integration**
+   - All student data is securely stored in an Azure SQL Database, offering scalability and secure access.
 
-    The app uses the Java Preferences API to store user preferences such as previously entered registration details (username, email, etc.), so you don't have to keep typing them in again.
+### 5. **Profile Image Storage**
+   - Upload and store student profile images in Azure Blob Storage for easy management.
 
-4. Azure SQL Database Integration
+### 6. **User Feedback & Status Bar**
+   - Displays real-time feedback, such as successful registrations or data import status, in a user-friendly status bar.
 
-    All the student data is securely stored in an Azure SQL Database. This cloud-based database ensures the app is scalable and can handle a large amount of student data with ease.
+### 7. **Import/Export CSV**
+   - Import student data from CSV files or export current records to CSV for backup or further analysis.
 
-5. Blob Storage for Profile Images
+### 8. **Generate PDF Reports**
+   - Create PDF reports that include bar charts to visualize student distribution by major.
 
-    Users can upload their profile images, which are then stored in Azure Blob Storage. This helps with managing profile pictures in a way that’s both secure and flexible.
+### 9. **Edit Records Directly in the Table**
+   - Edit student records directly within the table, and changes are saved to the database immediately.
 
-6. User Feedback and Status Bar
+### 10. **Thread-Safe User Sessions**
+    - Ensures smooth, concurrent usage by managing user sessions in a thread-safe manner.
 
-    The app has a handy status bar that gives you real-time feedback on what’s happening—whether it's confirming your successful registration, indicating a successful data import, or notifying you of errors.
+## **Technologies Used**
 
-7. Import/Export CSV
+- **JavaFX**: The user interface is built with JavaFX, providing a smooth and modern desktop experience.
+- **Azure SQL Database**: All student data is securely stored in the cloud with Azure SQL Database.
+- **Azure Blob Storage**: Profile images are stored securely using Azure Blob Storage.
+- **Regular Expressions (Regex)**: Validates user inputs (email and password) during registration.
+- **Java Preferences API**: Saves and loads user settings, improving convenience across sessions.
 
-    Users can import and export CSV files to manage student records.
-    You can load student data from a CSV file into the table, or save the current data from the table to a CSV file for backup or further analysis.
-
-8. Generate PDF Reports with Bar Charts
-
-    Want to see how students are distributed by major? You can generate a PDF report that includes a bar chart showing this distribution.
-    This makes it easy to share visual data about the student population with others.
-
-9. Edit Records Directly in the Table
-
-    Need to change something? No problem! You can edit student records directly within the table view. Any changes you make are saved instantly to the database.
-
-10. Thread-Safe User Session Management
-
-    The app uses a thread-safe UserSession class to ensure everything runs smoothly even if multiple users are interacting with the app at the same time.
-
-Technologies Used
-JavaFX
-
-    The app’s graphical interface is built using JavaFX. It’s a great framework for building modern desktop applications and provides the smooth, user-friendly experience you see in this app.
-
-Azure SQL Database
-
-    Azure SQL Database is used for securely storing student records. This ensures that data is safely stored in the cloud and can be easily queried when needed.
-
-Azure Blob Storage
-
-    Azure Blob Storage is used to store student profile images. This allows users to upload and retrieve their photos without worrying about managing the files locally.
-
-Regular Expressions (Regex)
-
-    The app uses regex to validate email addresses and passwords during the registration process, ensuring data integrity from the start.
-
-Java Preferences API
-
-    The Java Preferences API allows the app to save user settings and preferences locally, making the user experience more seamless across sessions.
