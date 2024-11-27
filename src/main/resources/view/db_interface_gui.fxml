@@ -53,6 +53,7 @@
                   <Menu mnemonicParsing="false" styleClass="menu_options" text="Reports">
                       <items>
                           <MenuItem fx:id="displayReport" mnemonicParsing="false" onAction="#createBarChartOfMajors" styleClass="menu_items" text="display chart" />
+                          <MenuItem fx:id="exportToCSV" mnemonicParsing="false" onAction="#onSaveButtonClick" styleClass="menu_items" text="Export to CSV" />
                       </items>
                   </Menu>
               </menus>

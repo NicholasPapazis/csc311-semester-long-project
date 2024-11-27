@@ -35,14 +35,14 @@ import javafx.util.converter.IntegerStringConverter;
 import model.Person;
 import service.MyLogger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.azure.core.util.FluxUtil.writeFile;
 
 
 public class DB_GUI_Controller implements Initializable {
@@ -695,6 +695,46 @@ public class DB_GUI_Controller implements Initializable {
         }
     } //end exportBarChartToPDF
 
+
+
+    @FXML
+    protected void onSaveButtonClick() {
+        FileChooser fileChooser = new FileChooser(); //create new filechooser object
+        fileChooser.setTitle("Save CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+        File f = fileChooser.showSaveDialog(tv.getScene().getWindow());
+
+        //write data if user selected a file
+        if (f != null) {
+            try {
+                writeFile(f.getAbsolutePath(), tv.getItems());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    //This method write into a file using String file, ObservableList<Person> data
+    // it is called writeFile
+    public void writeFile(String file, ObservableList<Person> data) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+
+            writer.write("ID, First Name, Last Name, Department, Major, Email");
+            writer.newLine();
+
+            //loops through data list and writes data
+            for(Person p : data) {
+                writer.write(p.getId() + ", " + p.getFirstName() + ", " + p.getLastName() + ", " + p.getDepartment() + ", " + p.getMajor() + ", " + p.getEmail());
+                writer.newLine(); //creates new row by moving to next line
+            }
+        } catch (IOException ex) {
+            System.out.println("Error writing to file '" + file + "'");
+        }
+
+    }
 
 
 
