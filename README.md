@@ -19,7 +19,7 @@
    - Record username and password upon sign-in in the Preference file
 
 
-![image](https://github.com/user-attachments/assets/3cae41be-a82e-4a91-affc-55344af25180)
+![image](https://github.com/user-attachments/assets/10ee33a5-ac02-4966-b060-99fec0db8346)
 
 
 
@@ -35,14 +35,17 @@
 ![image](https://github.com/user-attachments/assets/a421f960-a566-41fc-ba40-951e2e2e7a72)
 
 
-### 7. **Import/Export CSV**
+### 7. **Edit Records Directly in the Table**
+   - Edit student records directly within the table, and changes are saved to the database immediately.
+
+### 8. **Import/Export CSV**
    - Import student data from CSV files or export current records to CSV for backup or further analysis.
 
-### 8. **Generate PDF Reports**
+### 9. **Generate PDF Reports**
    - Create PDF reports that include bar charts to visualize student distribution by major.
 
-### 9. **Edit Records Directly in the Table**
-   - Edit student records directly within the table, and changes are saved to the database immediately.
+![image](https://github.com/user-attachments/assets/c2367385-3bf7-4a13-8612-e703835cb6e5)
+
 
 ### 10. **Thread-Safe User Sessions**
     - Ensures smooth, concurrent usage by managing user sessions in a thread-safe manner.
