@@ -32,6 +32,9 @@
 ### 6. **User Feedback & Status Bar**
    - Displays real-time feedback, such as successful registrations or data import status, in a user-friendly status bar.
 
+![image](https://github.com/user-attachments/assets/a421f960-a566-41fc-ba40-951e2e2e7a72)
+
+
 ### 7. **Import/Export CSV**
    - Import student data from CSV files or export current records to CSV for backup or further analysis.
 
