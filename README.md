@@ -19,7 +19,8 @@
    - Record username and password upon sign-in in the Preference file
 
 
-https://github.com/user-attachments/assets/0325ed6f-7ac2-45af-8d08-2ce641b02f9e
+![image](https://github.com/user-attachments/assets/3cae41be-a82e-4a91-affc-55344af25180)
+
 
 
 ### 4. **Azure SQL Database Integration**
