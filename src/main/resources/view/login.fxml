@@ -31,12 +31,12 @@
     </Button>
    <Pane fx:id="leftSection" layoutX="-2.0" prefHeight="600.0" prefWidth="403.0">
       <children>
-         <Text fill="WHITE" layoutX="31.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Registration">
+         <Text fill="WHITE" layoutX="123.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PortalPro">
             <font>
                <Font name="System Bold" size="35.0" />
             </font>
          </Text>
-         <ImageView fx:id="logoLogin" fitHeight="175.0" fitWidth="176.0" layoutX="114.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="logoLogin" fitHeight="175.0" fitWidth="176.0" layoutX="114.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../images/profileWhite.png" />
             </image>
