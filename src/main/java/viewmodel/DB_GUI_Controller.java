@@ -722,17 +722,65 @@ public class DB_GUI_Controller implements Initializable {
     public void writeFile(String file, ObservableList<Person> data) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
 
-            writer.write("ID, First Name, Last Name, Department, Major, Email");
+            writer.write("ID, First Name, Last Name, Department, Major, Email, ImageURL");
             writer.newLine();
 
             //loops through data list and writes data
             for(Person p : data) {
-                writer.write(p.getId() + ", " + p.getFirstName() + ", " + p.getLastName() + ", " + p.getDepartment() + ", " + p.getMajor() + ", " + p.getEmail());
+                writer.write(p.getId() + ", " + p.getFirstName() + ", " + p.getLastName() + ", " + p.getDepartment() + ", " + p.getMajor() + ", " + p.getEmail() + ", " + p.getImageURL());
                 writer.newLine(); //creates new row by moving to next line
             }
         } catch (IOException ex) {
             System.out.println("Error writing to file '" + file + "'");
         }
+
+    }
+
+
+    @FXML
+    protected void onImportButtonClick() {
+        FileChooser fileChooser = new FileChooser(); //create new filechooser object
+        fileChooser.setTitle("Import CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+        File f = fileChooser.showOpenDialog(tv.getScene().getWindow());
+
+        //write data if user selected a file
+        if (f != null) {
+            try {
+                readFile(f.getAbsolutePath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    //This method write into a file using String file, ObservableList<Person> data
+    // it is called writeFile
+    public void readFile(String fileName) throws IOException {
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            ObservableList<Person> importedData = FXCollections.observableArrayList();
+
+            String line;
+            while((line = bufferedReader.readLine()) != null) {
+                String[] fields = line.split(","); //split the fields by commas
+
+                //check to make sure csv file has equal number of columns as our TableView
+                if(fields.length == 7){
+                    Person p = new Person( Integer.parseInt(fields[0]), fields[1], fields[2], fields[3], fields[4], fields[5], fields[6]); //each field corresponds to a column in the TableView
+                    importedData.add(p); //add the person object to the list
+                }
+            }
+
+            //tv.setItems(importedData);//replaces all data with data in csv file
+            tv.getItems().addAll(importedData); //adds data in csv file to existing data
+
+
+
 
     }
 

@@ -54,6 +54,7 @@
                       <items>
                           <MenuItem fx:id="displayReport" mnemonicParsing="false" onAction="#createBarChartOfMajors" styleClass="menu_items" text="display chart" />
                           <MenuItem fx:id="exportToCSV" mnemonicParsing="false" onAction="#onSaveButtonClick" styleClass="menu_items" text="Export to CSV" />
+                          <MenuItem fx:id="importCSV" mnemonicParsing="false" onAction="#onImportButtonClick" styleClass="menu_items" text="Import to CSV" />
                       </items>
                   </Menu>
               </menus>
