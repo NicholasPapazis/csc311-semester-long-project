@@ -1,60 +1,46 @@
-![logo](https://github.com/user-attachments/assets/23b7bc91-9269-4226-b129-faf616423dd3)
-# **PortalPro** - Student Registration Application
+# **Ram Fitness** - Fitness Tracking Application
 
-**PortalPro** simplifies the process of managing student records. Whether you're adding, updating, or viewing student data, this application provides a clean, intuitive interface and powerful features to keep everything organized.
+**Ram Fitness** helps users track their fitness goals, monitor progress, and stay motivated. With features such as personalized themes, account management, and an interactive dashboard, this app is designed to keep your fitness journey on track.
 
 ## **Features**
 
-### 1. **CRUD Functionality**
-   - **Create**: Add new student records easily.
-   - **Read**: View student details in a simple table.
-   - **Update**: Edit records directly within the table.
-   - **Delete**: Remove student records when necessary.
+### 1. **Google Firebase Authentication**
+   - Users can securely sign up, log in, and manage their accounts using Google Firebase Authentication.
 
-### 2. **Advanced Registration with Validation**
-   - Ensures users enter a valid @farmingdale.edu email and passwords between 2 to 25 characters, using regular expression (regex) validation.
+### 2. **Regex Input Validation**
+   - Ensures that all user inputs such as email, password, and fitness data are correctly formatted using regular expressions during registration and throughout the app.
 
-### 3. **User Session and Preferences**
-   - Signup and login functionality implemented using Java Preferences API.
-   - Record username and password upon sign-in in the Preference file
+     ![Screenshot from 2024-12-08 02-21-15](https://github.com/user-attachments/assets/33d59e2c-225b-4171-9ffe-83acdf0aa583)
 
 
-![image](https://github.com/user-attachments/assets/10ee33a5-ac02-4966-b060-99fec0db8346)
+### 3. **Dashboard**
+   - Displays real-time progress towards daily fitness goals, including metrics like calories burned, weight lifted, exercise time, and sleep hours.
 
+### 4. **Update Progress and Goals**
+   - Users can update their daily fitness progress and adjust their goals directly within the app for better goal management.
 
+### 5. **Get Started Page**
+   - A learning hub for users to explore different types of exercises, such as calisthenics, powerlifting, fat loss, and muscle building.
 
-### 4. **Azure SQL Database Integration**
-   - All student data is securely stored in an Azure SQL Database, offering scalability and secure access.
+### 6. **Settings Page with Theme Customization**
+   - Switch between four different themes for a personalized experience and a visually appealing user interface.
 
-### 5. **Profile Image Storage**
-   - Upload and store student profile images in Azure Blob Storage for easy management.
+### 7. **Thread-Safe Theme Switching**
+   - Ensures smooth and safe switching between themes across multiple threads, preventing concurrency issues during theme changes.
 
-### 6. **User Feedback & Status Bar**
-   - Displays real-time feedback, such as successful registrations or data import status, in a user-friendly status bar.
+### 8. **Account Deletion**
+   - Users can delete their accounts at any time from the settings page.
 
-![image](https://github.com/user-attachments/assets/a421f960-a566-41fc-ba40-951e2e2e7a72)
+### 9. **Real-Time Progress Monitoring**
+   - Real-time updates to reflect fitness progress toward user-defined goals, ensuring that users remain motivated.
 
-
-### 7. **Edit Records Directly in the Table**
-   - Edit student records directly within the table, and changes are saved to the database immediately.
-
-### 8. **Import/Export CSV**
-   - Import student data from CSV files or export current records to CSV for backup or further analysis.
-
-### 9. **Generate PDF Reports**
-   - Create PDF reports that include bar charts to visualize student distribution by major.
-
-![image](https://github.com/user-attachments/assets/c2367385-3bf7-4a13-8612-e703835cb6e5)
-
-
-### 10. **Thread-Safe User Sessions**
-    - Ensures smooth, concurrent usage by managing user sessions in a thread-safe manner.
+### 10. **User-Friendly Interface**
+   - Designed with JavaFX, the application features a modern and intuitive interface, including material design icons to enhance the user experience.
 
 ## **Technologies Used**
 
 - **JavaFX**: The user interface is built with JavaFX, providing a smooth and modern desktop experience.
-- **Azure SQL Database**: All student data is securely stored in the cloud with Azure SQL Database.
-- **Azure Blob Storage**: Profile images are stored securely using Azure Blob Storage.
-- **Regular Expressions (Regex)**: Validates user inputs (email and password) during registration.
-- **Java Preferences API**: Saves and loads user settings, improving convenience across sessions.
-
+- **Google Firebase Authentication**: Provides secure and reliable authentication services for users.
+- **Regex**: Regular expressions are used to validate user inputs, such as emails and passwords, throughout the app.
+- **Google Material Design Icons**: These icons help improve the app's design with modern and user-friendly visuals.
+- **Thread Safety (Java)**: Ensures that theme switching is managed safely and effectively in a multi-threaded environment.
